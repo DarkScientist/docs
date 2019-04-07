@@ -11,12 +11,12 @@ Pré-requis
 
 Pour installer le CMS MineWeb votre hébergeur doit avoir :
 
-Version PHP supérieure ou égale à 5.6 et inférieure à 7.1
-PDO activé
-cURL activé
-Réécriture d'URL
-.htaccess activés
-La librairie GD2
-La possibilité d'ouvrir un zip
-La possibilité d'ouvrir un site à distance
-OpenSSL
+- Version PHP supérieure ou égale à 5.6 et inférieure à 7.3
+- PDO activé
+- cURL activé
+- Réécriture d'URL
+- .htaccess activés
+- La librairie GD2
+- La possibilité d'ouvrir un zip
+- La possibilité d'ouvrir un site à distance
+- OpenSSL
