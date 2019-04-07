@@ -28,6 +28,12 @@ Installation
 **Informations**
 > Vous devez placer tout le contenu de l'archive téléchargée, sur votre hébergeur (les fichiers .DS_Store & \__MACOSX sont inutiles). Il faut ensuite appliquer les permissions 755 ou 775 sur tous les fichiers (pour permettre les mises à jour). Puis rendez-vous sur sur http://{votre site}
 
+> ## Blockquoted header
+>
+> This is blockquoted text.
+>
+> This is a second paragraph within the blockquoted text.
+
 Étape 1 - Configuration de la base de données
 -------
 Vous devez avoir une page demandant vos identifiants de base de données, vous devez entrez ceux-ci et tester la connexion, puis il vous faudra cliquer sur un bouton qui installera la base de données automatiquement.
