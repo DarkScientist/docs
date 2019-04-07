@@ -68,9 +68,9 @@ Lier serveur-site
 
 Compatibilité
 -------
-Les plugins sont compatibles à partir de la version 1.8
+**Les plugins sont compatibles à partir de la version 1.8**
 
-Type de connexion: 
+*Type de connexion:*
 - Par Défaut : connexion à un serveur lié avec le plugin Bukkit/Spigot, permet l’utilisation de toutes les fonctionnalités du CMS (**boutique, classement factions, vote**…) 
 - Par Rcon : connexion à un serveur lié avec le Rcon. Pour la liaison d'un serveur Bungee, utilisez le Plugin Bungeecord RCON, permet l’utilisation de toutes les fonctionnalités du CMS mais pas du classement factions 
 - Ping : connexion à un serveur sans plugin, permet uniquement d’avoir le nombre de joueurs en ligne et le nombre de joueurs maximums (la **boutique** et le **classement factions** ne **pourront pas** être utilisés avec ce type de connexion)
