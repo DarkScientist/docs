@@ -10,7 +10,7 @@ MineWeb est développé sous un framework PHP nommé CakePHP permettant un déve
 Pré-requis
 --------
 
-Pour installer le CMS MineWeb votre hébergeur doit avoir :
+Pour installer le CMS MineWeb votre hébergeur **doit** avoir :
 
 - Version PHP supérieure ou égale à 5.6 et inférieure à 7.3
 - PDO activé
@@ -25,8 +25,8 @@ Pour installer le CMS MineWeb votre hébergeur doit avoir :
 Installation
 ========
 
-Informations
-Vous devez placer tout le contenu de l'archive téléchargée, sur votre hébergeur (les fichiers .DS_Store & \__MACOSX sont inutiles). Il faut ensuite appliquer les permissions 755 ou 775 sur tous les fichiers (pour permettre les mises à jour). Puis rendez-vous sur sur http://{votre site}/install
+**Informations**
+> Vous devez placer tout le contenu de l'archive téléchargée, sur votre hébergeur (les fichiers .DS_Store & \__MACOSX sont inutiles). Il faut ensuite appliquer les permissions 755 ou 775 sur tous les fichiers (pour permettre les mises à jour). Puis rendez-vous sur sur http://{votre site}/install
 
 Étape 1 - Configuration de la base de données
 -------
