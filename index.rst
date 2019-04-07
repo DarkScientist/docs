@@ -26,7 +26,7 @@ Installation
 ========
 
 **Informations**
-
+---
 Vous devez placer tout le contenu de l'archive téléchargée, sur votre hébergeur (les fichiers .DS_Store & \__MACOSX sont inutiles). Il faut ensuite appliquer les permissions 777 sur tous les fichiers en recursif (pour permettre les mises à jour). Puis rendez-vous sur http://{votre site}.fr
 
 Étape 1 - Configuration de la base de données
