@@ -1,13 +1,13 @@
 Introduction
 ========
 
-## **C'est quoi MineWeb ?**
+**C'est quoi MineWeb ?**
 
 MineWeb est un CMS. Un CMS est un système de gestion de contenu. Plus précisément il vous permet de vous créer rapidement et facilement un site complètement personnalisable. MineWeb est la version 2 de l'ancien CMS LapisCraft de Eywek. Celui-ci n'étant plus stable et mal développé (cf. raisons ici).
 
 MineWeb est développé sous un framework PHP nommé CakePHP permettant un développement plus rapide, sécurisé et optimisé. Le projet a été lancé en 2015 en compagnie de Mac’ permettant de convenir entièrement à vos besoins.
 
-## Pré-requis
+Pré-requis
 --------
 
 Pour installer le CMS MineWeb votre hébergeur **doit** avoir :
@@ -65,6 +65,15 @@ Si vous avez besoin d'aide, si vous rencontrez un problème non répertorié ici
 
 Lier serveur-site
 ========
+<aside class="alert alert-warning">
+  <h3>Compatibilité</h3>
+  <p>Les plugins sont compatibles à partir de la version 1.8</p>
+</aside>
+<aside class="alert alert-info">
+  <p><strong>Type de connexion</strong>:  <br>
+  - Par défaut : <em>connexion à un serveur lié avec le <a href="https://github.com/MineWeb/ServerBridge/raw/master/mineweb_bridge-2.0.0.jar">plugin Bukkit/Spigot/Bungeecord</a>, permet l’utilisation de toutes les fonctionnalités du CMS (boutique, classement factions, vote…)</em> <br>
+  - Ping : <em>connexion à un serveur sans plugin, permet uniquement d’avoir le nombre de joueurs en ligne et le nombre de joueurs maximums (la <strong>boutique</strong> et le <strong>classement</strong> factions <strong>ne pourront pas être utilisés</strong> avec ce type de connexion) </em></p>
+</aside>
 
 Configuration préalable
 -------
