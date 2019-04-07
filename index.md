@@ -43,24 +43,8 @@ Installation terminée
 
 Une fois l'installation du CMS complétée vous pouvez passer à l'utilisation du CMS en lui-même. Pour configurer votre CMS il vous faut vous connecter en cliquant sur le bouton en haut à gauche de la barre de navigation. Vous cliquez sur connexion puis entrez vos informations pour vous connecter. Vous cliquez ensuite sur Panel administrateur, vous serez redirigé et vous pourrez ensuite cliquer sur Général puis Préférences générales.
 
-Aide externe et problèmes fréquents
--------
-Problème chez livehost
-Il est possible que vous obteniez une erreur dans ce style là :
-
-Warning: include(Cake/bootstrap.php): failed to open stream: No such file or directory in
-
-Pour résoudre ce problème, rendez-vous dans app/webroot, ouvrez le fichier index.php et allez à la ligne 64
-
-//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
-
-Retirez les deux slashs
-
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
-
-Sauvegardez et rechargez la page.
-
 Autres
+-------
 Si vous avez besoin d'aide, si vous rencontrez un problème non répertorié ici, vous pouvez nous contacter sur notre Discord.
 
 Lier serveur-site
@@ -70,7 +54,7 @@ Compatibilité
 -------
 **Les plugins sont compatibles à partir de la version 1.8**
 
-*Type de connexion:*
+**Type de connexion:**
 - Par Défaut : connexion à un serveur lié avec le plugin Bukkit/Spigot, permet l’utilisation de toutes les fonctionnalités du CMS (**boutique, classement factions, vote**…) 
 - Par Rcon : connexion à un serveur lié avec le Rcon. Pour la liaison d'un serveur Bungee, utilisez le Plugin Bungeecord RCON, permet l’utilisation de toutes les fonctionnalités du CMS mais pas du classement factions 
 - Ping : connexion à un serveur sans plugin, permet uniquement d’avoir le nombre de joueurs en ligne et le nombre de joueurs maximums (la **boutique** et le **classement factions** ne **pourront pas** être utilisés avec ce type de connexion)
