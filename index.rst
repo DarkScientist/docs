@@ -62,3 +62,9 @@ Sauvegardez et rechargez la page.
 
 Autres
 Si vous avez besoin d'aide, si vous rencontrez un problème non répertorié ici, vous pouvez nous contacter sur notre Discord.
+
+Lier serveur-site
+========
+
+Configuration préalable
+-------
