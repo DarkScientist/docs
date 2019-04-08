@@ -49,15 +49,15 @@ Si vous avez besoin d'aide, si vous rencontrez un problème non répertorié ici
 Lier serveur-site
 -----------
 
-.. note:: Compatibilité **Les plugins sont compatibles à partir de la version 1.8**
+.. note:: **Les plugins sont compatibles à partir de la version 1.8**
 
-**Type de connexion:**
+.. note:: **Type de connexion:**
 - Par Défaut : connexion à un serveur lié avec le plugin Bukkit/Spigot, permet l’utilisation de toutes les fonctionnalités du CMS (**boutique, classement factions, vote**…) 
 - Par Rcon : connexion à un serveur lié avec le Rcon. Pour la liaison d'un serveur Bungee, utilisez le Plugin Bungeecord RCON, permet l’utilisation de toutes les fonctionnalités du CMS mais pas du classement factions 
 - Ping : connexion à un serveur sans plugin, permet uniquement d’avoir le nombre de joueurs en ligne et le nombre de joueurs maximums (la **boutique** et le **classement factions** ne **pourront pas** être utilisés avec ce type de connexion)
 
 Configuration préalable
--------
+~~~~~~~~~~~~~~~~~~~~
 Rendez-vous sur la page de liaison site-serveur sur le panel admin de votre CMS. Vous devez dans un premier temps configurer le temps d’exécution maximum (appelé aussi timeout), il est conseillé de mettre 1 (seconde).
 
 ![Drag Racing](https://docs.mineweb.org/images/server_timeout.png)
