@@ -16,7 +16,7 @@ Une fois vos modifications apportées, soumettez-nous une pull-request.
 
 ### Comment éditer une section
 
-Pour éditer une section déjà présente sur le CMS il vous suffit d'éditer le fichier de la section correspondante se situant dans `source/includes`.
+Pour éditer une section déjà présente sur le CMS il vous suffit d'éditer le fichier de la section correspondante se situant dans `source`.
 
 ### Comment ajouter une section
 
