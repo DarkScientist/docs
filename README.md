@@ -4,7 +4,7 @@ Présentation
 ------------
 
 La **documentation** de mineweb.org regroupe toutes les informations nécessaires au bon fonctionnement du CMS **MineWeb** ainsi que des tutoriels sur la création d'extensions ou sur la liaison avec le serveur.
-Ce repo vous permet de contribuer à la documentation grâce au système de Pull-Request de Github permettant ainsi à la documentation d'être plus complète. La documentation est au format [Markdown](https://fr.wikipedia.org/wiki/Markdown) et utilise la librairie [Slate](https://github.com/lord/slate). 
+Ce repo vous permet de contribuer à la documentation grâce au système de Pull-Request de Github permettant ainsi à la documentation d'être plus complète. La documentation est au format [reStructuredText](https://draft-edx-style-guide.readthedocs.io/en/latest/ExampleRSTFile.html#image-references) et utilise le framework [Sphinx](http://www.sphinx-doc.org/en/master/). 
 
 Comment contribuer ?
 ------------------------------
