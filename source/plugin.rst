@@ -5,6 +5,8 @@ Créer un plugin
 
 Un plugin (aussi appelé *extension*), est un ensemble de **fichiers** qui sont ajoutés à votre CMS pour y ajouter plusieurs **fonctionnalités** ou modifier certains **comportements** par défaut. Différents plugins “officiels” sont *déjà disponibles* `ici <https://github.com/MineWeb?utf8=%E2%9C%93&q=Plugin-&type=&language=php>`__. D’autres peuvent être *développés par la communauté* et c’est le but de ce tutoriel.
 
+Un PDF est disponible `ici <https://docs-mineweb.tk/files/Pl-Helper.pdf>`__ pour vous aider à comprendre et à créer votre plugin.
+
 Création
 ~~~~~~~~
 **Création des fichiers/dossiers**
@@ -274,3 +276,153 @@ Dans ce fichier vous pouvez y ajouter :
 
 Ces fonctions **onEnable** et **onDisable** seront **automatiquement** appelées par le CMS lors de l’**installation**, l’**activation** *(pour le onEnable)*, et pour la **désinstallation** et la **désactivation** *(pour le onDisable)* du plugin.
 
+Utiliser les events
+~~~~~~~~~~~~~~~~~~~
+Dans la config.json du plugin, passez **useEvents** à **true**.
+
+Pour créer un **écouteur** *(Listener)*, il vous faut créer un fichier dans le dossier */Event/* de votre plugin. Le fichier doit être appelé de la manière suivante *{PLUGIN_NAME}{NOM}EventListener.php* (préfixé par le slug de votre plugin).
+
+.. code-block:: none 
+
+   Exemple: ShopBuyEventListener et son contenu doit être comme ceci :
+   
+.. code-block:: php
+
+   <?php
+  App::uses('CakeEventListener', 'Event');
+
+  class {PLUGIN_NAME}{NOM}EventListener implements CakeEventListener {
+
+    private $controller;
+
+    public function __construct($request, $response, $controller) {
+      $this->controller = $controller;
+    }
+
+    public function implementedEvents() {
+        return array();
+    }
+   }
+   
+.. code-block:: none
+
+   Pour écouter un event il vous faut l'ajouter dans l'array retourné par la fonction 
+   **implementedEvents()** avec votre fonction comme valeur. Et il vous faut ensuite 
+   créer votre fonction. Exemple :
+   
+.. code-block:: php
+
+   <?php
+  App::uses('CakeEventListener', 'Event');
+
+  class NAMEEventListener implements CakeEventListener {
+
+    public function implementedEvents() {
+        return array(
+          'requestPage' => 'mafonction'
+        );
+    }
+
+    public function mafonction($event) {
+
+    }
+   }
+   
+**Liste des events disponibles**
+
+**Global**
+
+- **requestPage** : appelé lors de chaque requête sans données particulières.
+- **onPostRequest** : appelé lors d’une requête POST sans données particulières.
+- **beforePageDisplay** : appelé lors de chaque chargement de page dans le afterFilter sans données particulières.
+- **onLoadPage** : appelé lors de chaque chargement de page dans le beforeRender sans données particulières.
+- **onLoadAdminPanel** : appelé lors de chaque chargement de page admin (prefix) dans le beforeRender sans données particulières.
+
+**Fonction particulière**
+
+- **beforeEncodePassword** : appelé avant chaque encodage de mot de passe avec le pseudo et le mot de passe en données.
+- **beforeSendMail** : appelé avant chaque envoi d’email avec le message et la configuration en données.
+- **beforeUploadImage** : appelé avant chaque upload d’image avec la requête et le nom de l’image voulu en données.
+
+**News**
+
+- **beforeAddComment** : appelé avant que le commentaire ne soit enregistré avec le contenu, l’ID de la news et les infos de l’utilisateur en données.
+- **beforeLike** : appelé avant que le like ne soit enregistré avec l’ID de la news et les infos de l’utilisateur en données.
+- **beforeDislike** : appelé avant que le like ne soit supprimé avec l’ID de la news et les infos de l’utilisateur en données.
+- **beforeDeleteComment** : appelé avant que le commentaire ne soit supprimé avec l’ID du commentaire, l’ID de la news et les infos de l’utilisateur en données.
+- **beforeDeleteNews** : appelé avant que la news ne soit supprimé avec l’ID de la news et les infos de l’utilisateur en données.
+- **beforeAddNews** : appelé avant que la news ne soit enregistré avec le contenu de la requête et les infos de l’utilisateur en données.
+- **beforeEditNews** : appelé avant que la news ne soit enregistré avec le contenu de la requête, l’ID de la news et les infos de l’utilisateur en données.
+
+**User**
+
+- **onLogin** : appelé à chaque login avec l’utilisateur et register (boolean) comme données.
+- **beforeRegister** : appelé avant l’enregistrement d’un utilisateur (après la validation) avec les données de la requête comme données.
+- **beforeConfirmAccount** : appelé avant la confirmation en base de donnée de l’utilisateur avec l’ID de l’utilisateur et manual si confirmé par un administrateur comme données.
+- **beforeSendResetPassMail** : appelé avant l’envoi de l’email permettant la réinitialisation du mot de passe avec l’ID de l’utilisateur et clé de reset comme données
+- **beforeResetPassword** : appelé avant l’enregistrement du nouveau mot de passe avec l’ID de l’utilisateur et le nouveau mot de passe comme données.
+- **onLogout** : appelé pendant la déconnexion avec la session “user” comme données.
+- **beforeUpdatePassword** : appelé avant l’enregistrement du nouveau mot de passe avec l’utilisateur et le nouveau mot de passe encodé comme données.
+- **beforeUpdateEmail** : appelé avant l’enregistrement du nouvel email avec l’utilisateur et le nouveau email comme données.
+- **beforeSendPoints** : appelé avant l’enregistrement de la transaction avec l’utilisateur, le nouveau solde de l’utilisateur, à qui sont transféré les points et combien comme données.
+- **beforeEditUser** : appelé avant que les données ne soit enregistrées avec l’ID de l’utilisateur, les données et ``password_updated`` comme données.
+- **beforeDeleteUser** : appelé avant que l’utilisateur ne soit supprimé avec ses informations comme données.
+
+Utiliser les modules
+~~~~~~~~~~~~~~~~~~~~
+**C'est quoi ?**
+
+Les modules permettent aux développeurs de plugins d'ajouter du **code HTML**, **code PHP**, etc... facilement depuis des **pages du CMS**.
+
+**Liste des modules**
+
+Les modules disponibles sont :
+
+- ``user_profile`` *profil d'utilisateur*
+- ``user_profile_messages`` *profil d'utilisateur (haut de page)*
+- ``admin_user_edit`` *modification admin d'un utilisateur (bas de page)*
+- ``admin_user_edit_form`` *modification admin d'un utilisateur (dans le formulaire)*
+- ``home`` *accueil*
+- ``news`` *page affichant une news*
+
+**Comment les utiliser ?**
+
+Pour utiliser un module dans votre **plugin**, il vous suffit de créer un dossier */Modules/* dans le dossier de votre plugin. Il vous faut ensuite **créer** un fichier nommé par le **nom du module** que vous voulez utiliser et avec l'extension **.ctp**.
+
+Par exemple pour utiliser le module **user_profile** il vous faut créer le fichier */Modules/user_profile.ctp*.
+
+Dans ce fichier, vous pouvez ajouter le code que vous souhaitez, **HTML**, **PHP** ou encore **JS** ou **CSS**.
+
+Exemple d'un plugin
+~~~~~~~~~~~~~~~~~~~
+Je vais avec vous, développer un plugin vous présentant le développement sous Mineweb avec le framework Cakephp 2.x .
+
+Arborescence du plugin :
+
+- ``app/Plugin/``
+     - ``Tutorial/``
+        - ``Config/``
+           - ``bootstrap.php``
+           - ``routes.php``
+        - ``Controller/``
+           - ``TutorialAppController.php``
+           - ``TutorialController``
+        - ``Model/``
+           - ``Info.php``
+           - ``TutorialAppModel.php``
+        - ``SQL/``
+           - ``schema.php``
+        - ``View/``
+           - ``Tutorial/``
+               - ``admin_index.ctp``
+               - ``index.ctp``
+        - ``lang/``
+           - ``en_US.json``
+           - ``fr_FR.json``
+        - ``config.json``
+
+Dans un premier temps, nous allons créer les routes du plugin. Celles-ci permettent que nous puissions relier les divers arguments de l'url aux controleurs.
+
+Pour des raisons de conventions, vous aurez remarqué que nous ne fermons pas nos balises PHP avec ?>. Cela évite de multiples problèmes et vous familiarise avec les frameworks PHP.  
+
+Si vous voulez plus d'information, je vous conseille ces liens : `StackOverflow <http://stackoverflow.com/questions/4410704/why-would-one-omit-the-close-tag/4499749#4499749>`__ ainsi que les recommandations `PHP-Fig <http://www.php-fig.org/psr/psr-2/>`__.

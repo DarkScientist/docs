@@ -3,3 +3,6 @@ build/
 
 # ignore all MD file
 *.md
+
+# ignore htaccess
+*.htaccess
