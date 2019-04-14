@@ -4,5 +4,8 @@ Documentations Mineweb
 .. toctree::
    :glob:
 
-   docs
+   intro
+   install
+   liaison
+   plugin
 
