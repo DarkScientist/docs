@@ -20,5 +20,5 @@ Pour éditer une section déjà présente sur le CMS il vous suffit d'éditer le
 
 ### Comment ajouter une section
 
-Pour ajouter une section, il vous suffit d'aller editer le fichier `source/docs.rst`.
-Il vous suffira ensuite de remplir la section comme vous le souhaitez. 
+Pour ajouter une section, il vous suffit de rajouter un fichier dans `source` au format {Nom de la section}.rst. Il faudra également ajouter le nom de votre section dans le fichier source/index.rst. 
+Il vous suffira ensuite de remplir la section comme vous le souhaitez.
