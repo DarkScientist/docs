@@ -34,7 +34,7 @@ C’est tout pour les dossiers, il nous reste maintenant encore des fichiers à 
 
 Maintenant que vous avez créé tous ces fichiers, nous allons passer à la configuration de votre plugin. Pour cela, ouvrez le fichier **config.json**, c'est dans ce fichier que toute la configuration sera située.
 
-.. code-block:: none
+.. admonition:: Information
 
    Configuration par défaut (à remplir)
 
@@ -126,7 +126,7 @@ Les clés du panel admin sont les suivantes
 	 
 La valeur doit ensuite être un objet contenu l’``icon``, la ``route`` ou le ``menu`` (et optionnelement ``permission`` et ``index``)
 
-.. code-block:: none
+.. admonition:: Information
    
    Associez-lui comme valeur un tableau avec vos sous-liens, comme ceci par exemple :
    
@@ -282,9 +282,9 @@ Dans la config.json du plugin, passez **useEvents** à **true**.
 
 Pour créer un **écouteur** *(Listener)*, il vous faut créer un fichier dans le dossier */Event/* de votre plugin. Le fichier doit être appelé de la manière suivante *{PLUGIN_NAME}{NOM}EventListener.php* (préfixé par le slug de votre plugin).
 
-.. code-block:: none 
+.. admonition:: Exemple 
 
-   Exemple: ShopBuyEventListener et son contenu doit être comme ceci :
+   ShopBuyEventListener et son contenu doit être comme ceci :
    
 .. code-block:: php
 
@@ -304,11 +304,9 @@ Pour créer un **écouteur** *(Listener)*, il vous faut créer un fichier dans l
     }
    }
    
-.. code-block:: none
+.. admonition:: Information
 
-   Pour écouter un event il vous faut l'ajouter dans l'array retourné par la fonction 
-   **implementedEvents()** avec votre fonction comme valeur. Et il vous faut ensuite 
-   créer votre fonction. Exemple :
+   Pour écouter un event il vous faut l'ajouter dans l'array retourné par la fonction **implementedEvents()** avec votre fonction comme valeur. Et il vous faut ensuite créer votre fonction. Exemple :
    
 .. code-block:: php
 

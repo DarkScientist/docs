@@ -3,8 +3,7 @@ Lier serveur-site
 -----------------
 .. warning:: **Le plugins est compatibles à partir de la version 1.8**
 
-.. note:: 
-   **Type de connexion**:
+.. admonition:: **Type de connexion**
    
    - **Par Défaut** : connexion à un serveur lié avec le plugin `Bukkit/Spigot <https://github.com/MineWeb/ServerBridge/raw/master/mineweb_bridge-2.0.0.jar>`_, permet l’utilisation de toutes les fonctionnalités du CMS (**boutique, classement factions, vote**…) 
 
@@ -36,8 +35,13 @@ Maintenant que vous avez configuré le serveur vous pouvez ajouter un serveur et
 
 Cliquez ensuite sur **Connexion** pour tester la connexion, si celle-ci échoue, rendez-vous sur `cette section <https://docs-mineweb.tk/docs.html#la-connexion-echoue>`_
 
-.. note:: **Port customisé :** Vous pouvez également configurer un port personnalisé si vous ne souhaitez pas utiliser le port minecraft de votre serveur. Pour cela, assurez-vous d'avoir un port disponible et ouvert et effectuez la commande **/mineweb port <port>**.
-.. note:: **ProtocolLib :** Si vous avez ProtocolLib et que le plugin produit une erreur à cause du plugin de MineWeb vous pouvez utiliser `cette version <https://github.com/MineWeb/ServerBridge/raw/no-injector/mineweb_bridge-2.0.0.jar>`_. Vous devez obligatoirement configurer un port disponible et ouvert à l'aide la commande **/mineweb port <port>**.
+.. admonition:: **Port customisé** 
+   
+   Vous pouvez également configurer un port personnalisé si vous ne souhaitez pas utiliser le port minecraft de votre serveur. Pour cela, assurez-vous d'avoir un port disponible et ouvert et effectuez la commande **/mineweb port <port>**.
+
+.. admonition:: **ProtocolLib** 
+   
+   Si vous avez ProtocolLib et que le plugin produit une erreur à cause du plugin de MineWeb vous pouvez utiliser `cette version <https://github.com/MineWeb/ServerBridge/raw/no-injector/mineweb_bridge-2.0.0.jar>`_. Vous devez obligatoirement configurer un port disponible et ouvert à l'aide la commande **/mineweb port <port>**.
 
 Liaison par RCON
 ~~~~~~~~~~~~~~~~
