@@ -1,1 +1,5 @@
+# Ignore Folder Render
 build/
+
+# ignore all MD file
+*.md
