@@ -8,4 +8,5 @@ Documentations Mineweb
    install
    liaison
    plugin
-
+   theme
+   faq

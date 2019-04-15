@@ -1,6 +1,7 @@
 
 Créer un plugin
 ---------------
+
 **Introduction**
 
 Un plugin (aussi appelé *extension*), est un ensemble de **fichiers** qui sont ajoutés à votre CMS pour y ajouter plusieurs **fonctionnalités** ou modifier certains **comportements** par défaut. Différents plugins “officiels” sont *déjà disponibles* `ici <https://github.com/MineWeb?utf8=%E2%9C%93&q=Plugin-&type=&language=php>`__. D’autres peuvent être *développés par la communauté* et c’est le but de ce tutoriel.
@@ -9,6 +10,7 @@ Un PDF est disponible `ici <https://docs-mineweb.tk/files/Pl-Helper.pdf>`__ pour
 
 Création
 ~~~~~~~~
+
 **Création des fichiers/dossiers**
 
 Dans un premier temps, il va falloir créer le dossier de votre plugin, ce dossier doit être créé dans le dossier `app/Plugin/`. Le nom du dossier doit être le nom de votre plugin.
@@ -53,7 +55,7 @@ Maintenant que vous avez créé tous ces fichiers, nous allons passer à la conf
     }
   },
   "requirements" : {
-    "CMS" : "^1.7.0"
+    "CMS" : "1.7.0"
     }
   }
    
@@ -63,7 +65,7 @@ Ensuite voici une explication des autres lignes :
 - ``version`` : la version de votre plugin (**double**),
 - ``useEvents`` : si votre plugin utilise les événements disponible sur le CMS (**boolean**),
 - ``permissions`` : les permissions de votre plugin (voir plus tard) (**array**)
-- ``requirements`` : les pré-requis de votre plugin : vous devez spécifier comme clé un autre ID de plugin (au format **auteur.slug**) ou CMS et comme valeur une version correcte (cf. le semantic versionning donc préfixée ou non par ^ / ~ / >= / <=). Si un des pré-requis n'est pas rempli, le plugin ne sera pas installé sur le CMS.
+- ``requirements`` : les pré-requis de votre plugin : vous devez spécifier comme clé un autre ID de plugin (au format **auteur.slug**) ou CMS et comme valeur une version correcte (cf. le semantic versionning donc préfixée ou non par  / ~ / >= / <=). Si un des pré-requis n'est pas rempli, le plugin ne sera pas installé sur le CMS.
 
 **Les liens de la barre de navigation**
 
@@ -89,7 +91,7 @@ Cette clé doit contenir un objet avec comme clé le nom de la route et comme va
 		}
 	},
 	"requirements" : {
-		"CMS" : "^1.2.0"
+		"CMS" : "1.2.0"
 	  }
 	}
 
@@ -173,7 +175,7 @@ La valeur doit ensuite être un objet contenu l’``icon``, la ``route`` ou le `
     }
   },
   "requirements" : {
-    "CMS" : "^1.2.0"
+    "CMS" : "1.2.0"
     }
   }
 
@@ -219,7 +221,7 @@ La valeur doit ensuite être un objet contenu l’``icon``, la ``route`` ou le `
     }
   },
   "requirements" : {
-    "CMS" : "^1.2.0"
+    "CMS" : "1.2.0"
     }
   }
 
@@ -286,7 +288,7 @@ Pour créer un **écouteur** *(Listener)*, il vous faut créer un fichier dans l
 
    ShopBuyEventListener et son contenu doit être comme ceci :
    
-.. code-block:: php
+.. code-block:: none
 
    <?php
   App::uses('CakeEventListener', 'Event');
@@ -424,3 +426,445 @@ Dans un premier temps, nous allons créer les routes du plugin. Celles-ci permet
 Pour des raisons de conventions, vous aurez remarqué que nous ne fermons pas nos balises PHP avec ?>. Cela évite de multiples problèmes et vous familiarise avec les frameworks PHP.  
 
 Si vous voulez plus d'information, je vous conseille ces liens : `StackOverflow <http://stackoverflow.com/questions/4410704/why-would-one-omit-the-close-tag/4499749#4499749>`__ ainsi que les recommandations `PHP-Fig <http://www.php-fig.org/psr/psr-2/>`__.
+
+**Les routes**
+
+Allons ensemble dans notre fichier ``Config/routes.php`` et écrivons ceci :
+
+.. code-block:: php
+
+	<?php
+	Router::connect('/tutorial', ['controller' => 'tutorial', 'action' => 'index', 'plugin' => 'tutorial']);
+
+Notre plugin possède donc une route, lorsqu'un utilisateur ira sur monsite.fr/tutorial, la route s'occupera de rediriger notre visiteur dans le plugin tutorial, à notre controleur Tutorial puis à notre fonction index.
+
+**Les contrôleurs**
+
+Ensuite, nous allons créer un contrôleur parent, celui-ci n'est pas obligatoire pour développer un plugin, mais si l'architecture de votre plugin fait que vous devez avoir plusieurs contrôleurs avec des fonctions communes aux deux, vous pourrez facilement joindre vos fonctions.
+
+.. code-block:: php
+	
+	<?php
+	class TutorialAppController extends AppController {
+		// Vos fonctions communes ici
+
+		protected function math($x, $y, $z){
+			return ($x*$x)*$y-$z;
+		}
+	}
+
+Voici donc notre contrôleur principal, je vous ai mis quelques exemples de code ainsi que des commentaires.
+
+.. code-block:: php
+
+	<?php
+	class TutorialController extends TutorialAppController{
+		public function index(){
+
+			// Chargement du Model Tutorial
+			$this->loadModel('Tutorial.Info');
+
+			//On enregistre dans $datas le contenu de toute la table tutorial
+			$datas = $this->Info->find('all');
+
+			//On passe la variable à la vue afin de pouvoir la réutiliser dans index.ctp
+			$this->set(compact('datas'));
+
+			//Pour passer plusieurs variable à la vue :
+			//$this->set(compact('datas', 'variable', 'infos'));
+
+			//Pour donner un titre à votre page : Dans le html <title> Titre <title>
+			$this->set('title_for_layout', 'Titre');
+		}
+	}
+	
+**Les modèles**
+
+Les modèles sont des fichiers qui permettent l'interaction entre nos contrôleurs et notre base de données.
+
+Dans notre fichier ``Model/TutorialAppModel.php`` et écrivons ceci :
+
+.. code-block:: php
+
+	<?php
+	class TutorialAppModel extends AppModel{
+		public $tablePrefix = 'tutorial__';
+	}
+
+Cela nous permet de définir un préfix à notre table. Tous les modèles du plugin l'utiliseront. Il nous reste plus qu'à créer notre modèle.
+
+Pour cela, créez un fichier ``Model/Tutorial.php`` et écrivez ceci :
+
+.. code-block:: php
+
+	<?php
+	class Info extends TutorialAppModel{
+
+	}
+	
+Pour l'instant, il est vide, oui, car j'ai directement fait ma requête SQL depuis `Controller/TutorialController.php`.
+
+Mais nous aurions pu faire ceci :
+
+.. code-block:: php
+
+	<?php
+	class TutorialController extends TutorialAppController{
+		public function index(){
+			$this->loadModel('Tutorial.Info');
+
+			//Appel de la fonction présent dans notre modèle.
+			$datas = $this->Info->get();
+
+			$this->set(compact('datas'));
+		}
+	}
+
+Ainsi que dans depuis `Model/Tutorial.php`.
+
+.. code-block:: php
+
+	<?php
+	class Info extends TutorialAppModel{
+		public function get(){
+			return $this->find('all');
+		}
+	}
+
+**Les schémas / migrations**
+
+Les schémas / migrations selon les frameworks sont-ce qui permet à l'application de créer des bases de données, les supprimer afin qu'une base de données soit créer à l'exécution.
+
+Voici celui utilisé pour le tutoriel :
+
+.. code-block:: php
+
+	<?php
+	class TutorialAppSchema extends CakeSchema {
+
+		public $file = 'schema.php';
+
+		public function before($event = []) {
+			return true;
+		}
+
+		public function after($event = []) {}
+
+		public $tutorial__infos = [
+			'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 8, 'unsigned' => false, 'key' => 'primary'],
+			'pseudo' => ['type' => 'string', 'null' => false, 'default' => null, 'length' => 30, 'unsigned' => false],
+			'date' => ['type' => 'datetime', 'null' => false, 'default' => null]
+		];
+	}
+
+Je vous conseille de toujours avoir un champ ID dans votre base de données, cela vous évitera des problèmes futures dans la conception de votre plugin.
+
+**Les vues**
+
+Pour finir, il nous reste la vue, c'est là où l'on met notre code html.
+
+Grâce a notre variable $datas transmise, nous pouvons la récupérer afin de l'afficher sous forme de tableau.
+
+
+.. code-block:: php
+
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<section>
+						<div id="text-page">
+							<table class="table">
+								<thead>
+									<th><?= $Lang->get('TUTORIAL__ID'); ?></th>
+									<th><?= $Lang->get('TUTORIAL__PSEUDO'); ?></th>
+									<th><?= $Lang->get('TUTORIAL__DATE'); ?></th>
+								</thead>
+								<tbody>
+									<?php foreach ($datas as $data): ?>
+										<tr>
+											<td><?= $data['Info']['id']; ?></td>
+											<td><?= $data['Info']['pseudo']; ?></td>
+											<td><?= $data['Info']['date']; ?></td>
+										</tr>
+								   <?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+
+Le fichier admin_index.ctp est la page d'accueil de notre plugin sur la panel d'administration. Je ne vous explique pas car il s'agit de html basique avec une boucle pour afficher les données.
+
+Juste le data-ajax="true" pour envoyer notre formulaire en ajax
+
+
+.. code-block:: php
+
+	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title"><?= $Lang->get('TUTORIAL__ADD') ?></h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form action="" method="post" data-ajax="true">
+									<div class="form-group">
+										<input type="text" name="pseudo" class="form-control" placeholder="Pseudo" />
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary center-block"><?= $Lang->get('GLOBAL__SUBMIT'); ?></button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-responsive dataTable">
+									<thead>
+									<tr>
+										<th><?= $Lang->get('TUTORIAL__PSEUDO') ?></th>
+										<th><?= $Lang->get('TUTORIAL__DATE') ?></th>
+										<th></th>
+									</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($datas as $data): ?>
+											<tr>
+												<td><?= $data['Info']['pseudo']; ?></td>
+												<td><?= $this->Time->format($data['Info']['date'], '%H:%M, %e %B %Y'); ?></td>
+												<td><a onclick="confirmDel('/admin/tutorial/tutorial/delete/<?= $data['Info']['id']; ?>')" class="btn btn-danger"><?= $Lang->get('GLOBAL__DELETE') ?></a></td>
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+Une fois fait cela, il faut donc dans notre contrôleur principal, mettre le code pour notre parti admin. Voici le rendu final :
+
+.. code-block:: php
+
+	<?php
+	class TutorialController extends TutorialAppController{
+
+		public function index(){
+
+			// Chargement du Model Tutorial
+			$this->loadModel('Tutorial.Info');
+
+			//On enregistre dans $datas le contenu de toute la table tutorial
+			$datas = $this->Info->find('all');
+
+			//On passe la variable à la vue afin de pouvoir la réutiliser dans index.ctp
+			$this->set(compact('datas'));
+
+			//Pour passer plusieurs variable à la vue :
+			//$this->set(compact('datas', 'variable', 'infos'));
+
+			//Pour donner un titre à votre page : Dans le html <title> Titre <title>
+			$this->set('title_for_layout', 'Titre');
+		}
+
+		public function admin_index(){
+			//Important pour permettre seulements aux admins du site d'y avoir accès.
+			if($this->isConnected AND $this->User->isAdmin()){
+				$this->loadModel('Tutorial.Info');
+
+				//Si la requete est de type ajax
+				if($this->request->is('ajax')){
+					//Vu que c'est en ajax, nous n'avons pas besoin du layout
+					$this->autoRender = null;
+
+					//Je récupère le champs name="pseudo"
+					$pseudo = $this->request->data['pseudo'];
+					$date = date('Y-m-d H:i:s');
+
+					$this->Info->add($pseudo, $date);
+
+					//Envoi réponse en ajax
+					$this->response->body(json_encode(array('statut' => true, 'msg' => $this->Lang->get('GLOBAL__SUCCESS'))));
+				}else{
+					//Je déclare le thème du panel admin
+					$this->layout = 'admin';
+
+					//Je récupère les données de ma base.
+					$datas = $this->Info->get();
+
+					$this->set(compact('datas'));
+				}
+			}else {
+				//Sinon on redirige notre visiteur indiscret vers la page d'accueil
+				$this->redirect('/');
+			}
+		}
+
+		public function admin_delete($id){
+			if($this->isConnected AND $this->User->isAdmin()){
+				$this->autoRender = null;
+
+				$this->loadModel('Tutorial.Info');
+
+				//J'utilise _delete() car delete() existe déjà avec cakephp
+				$this->Info->_delete($id);
+
+				//Redirection vers notre page
+				$this->redirect('/admin/tutorial');
+			}else {
+				$this->redirect('/');
+			}
+		}
+	}
+
+
+Et notre model final :
+
+.. code-block:: php
+
+	<?php
+	class Info extends TutorialAppModel{
+
+		public function get(){
+			return $this->find('all');
+		}
+
+		public function _delete($id){
+			return $this->delete($id);
+		}
+
+		public function add($pseudo, $date){
+			$this->create();
+			$this->set(['pseudo' => $pseudo, 'date' => $date]);
+			return $this->save();
+		}
+	}
+
+**Les fichiers de langues**
+
+Vous aurez pu remarquer ``$Lang->get()``, en effet mes textes sont rangés dans un fichier de traduction, voici sa structure :
+
+``lang/fr_FR.json``
+
+.. code-block:: json
+
+	{
+	  "TUTORIAL__ID": "ID",
+	  "TUTORIAL__PSEUDO": "Pseudo",
+	  "TUTORIAL__DATE": "Date"
+	}
+
+``lang/en_US.json``
+
+.. code-block:: json
+
+	{}
+
+Si vous ne mettez pas deux accolades dedans, votre plugin ne fonctionnera pas correctement.
+
+Notez que vous n'êtes pas obligé d'utiliser les fichiers de traductions, même si vous ne mettez rien dedans, veillez à les créer et à écrire ceci dedans : ``{}``
+
+**Téléchargement**
+
+Je vous laisse télécharger le plugin afin de récupérer les codes : `lien du plugin </files/Tutorial.zip>`
+
+Il vous suffit d'extraire le .zip et de le mettre dans ``/app/Plugin``. Vous allez ensuite dans placer le contenu extrait dans ``app/Plugin``. Et allez sur la page de gestion des plugins,  si cela ne marche pas , videz votre cache : ``/app/tmp/``
+
+**Utilisation avancé**
+~~~~~~~~~~~~~~~~~~~~~~
+Dans le dossier ``Config/`` se trouve un fichier nommé ``bootstrap.php``, je vous redirige vers ce lien `Documentation CakePHP <https://book.cakephp.org/2.0/fr/development/configuration.html#bootstrapping-cakephp>`__ pour savoir à quoi sert t-il.
+
+**Intéragir avec le serveur**
+
+Vous pouvez très bien envoyer des commandes ou récupérer toutes sortes d'informations grâce au plugin de Bridge du CMS.
+Pour cela il vous suffit de procéder comme ceci (dans vos controllers) :
+
+.. code-block:: php
+
+	<?php
+	// Pour récupérer la liste des connectés sur le serveur sélectionné
+	$result = $this->Server->call([['GET_PLAYER_LIST' => []]], $server_id);
+	// Vous pouvez également procéder comme ceci :
+	$result = $this->Server->call(['GET_PLAYER_LIST' => []], $server_id);
+	// Ou plus simplement
+	$result = $this->Server->call('GET_PLAYER_LIST', $server_id);
+
+	/*
+	  Vous pouvez également stack les méthodes
+	*/
+
+	$result = $this->Server->call(['GET_PLAYER_LIST' => [], 'GET_PLAYER_COUNT' => []], $server_id);
+
+Pour savoir si **un joueur est connecté** vous pouvez utilisez cette méthode :
+
+.. code-block:: php
+
+	<?php
+	$this->Server->userIsConnected($username, $server_id);
+
+Pour **envoyer des commandes** vous avez ces deux méthodes :
+
+.. code-block:: php
+
+	<?php
+	$this->Server->send_command('say Boujour', $server_id);
+	$this->Server->commands(['say Boujour', 'say Boujour 2'], $server_id);
+
+Pour envoyer des **commandes différéees** pous avez cette méthode :
+
+.. code-block:: php
+
+	<?php
+	$this->Server->scheduleCommands(['say Boujour', 'say Boujour 2'], $time, [$server_id]); // Le $time doit être en minute
+
+Voici la **liste des méthodes disponibles** :
+
+- GET_PLAYER_LIST
+- GET_PLAYER_COUNT
+- IS_CONNECTED
+- GET_PLUGIN_TYPE
+- GET_SYSTEM_STATS
+- RUN_COMMAND
+- RUN_SCHEDULED_COMMAND
+- GET_SERVER_TIMESTAMP
+- GET_BANNED_PLAYERS
+- GET_MAX_PLAYERS
+- GET_MOTD
+- GET_VERSION
+- GET_WHITELISTED_PLAYERS
+
+**Rajouter des méthodes**
+
+Vous pouvez créer un plugin Java vous permettant d'ajouter des méthodes au plugin de Bridge pour pouvoir récupérer plus de données pour vos plugins. Pour cela il vous suffit de créer un plugin minecraft normal puis il vous faut ajouter MinewebBridge comme dépendance dans votre plugin.yml et d'appeler cette méthode dans votre plugin pour ajouter une méthode :
+
+.. code-block::  java
+
+	BukkitCore.get().getMethods().put("GET_FACTIONS", new GetFactions());
+
+La class que vous passez en paramètre doit ressembler a ceci :
+
+.. code-block::  java
+
+	@MethodHandler
+	public class GetFactions implements IMethod {
+
+		@Override
+		public Object execute(ICore instance, Object... inputs) {
+		}
+	}
+
+.. note:: Vous pouvez vous aider du plugin de classement Factions disponible `ici <https://github.com/MineWeb/MineWebFactions>`__.
