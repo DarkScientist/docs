@@ -57,9 +57,11 @@ Erreur 500 ou Erreur Interne
 Pour corriger l'erreur 500 sur votre cms faites **toutes** les étapes :
 
 *   Supprimez le contenu du fichier **"/app/tmp/"**
-*   Si ca ne marche toujours pas : 
-    *   Réeffectuez la manipulation qui a provoqué l'erreur
-    *   Mettez en ligne sur Pastebin le fichier **"/app/tmp/logs/error.log"** afin de donner le lien au support dans le chat du `Discord <https://discordapp.com/invite/3QYdt8r>`__
+
+Si ca ne marche toujours pas :
+ 
+*   Réeffectuez la manipulation qui a provoqué l'erreur
+*   Mettez en ligne sur Pastebin le fichier **"/app/tmp/logs/error.log"** afin de donner le lien au support dans le chat du `Discord <https://discordapp.com/invite/3QYdt8r>`__
 
 
 Pour éviter les confusions ou éviter toute erreur de votre part, merci de bien vouloir lire toute la documentation avant de demander de l'aide au support et pour être plus efficace.
@@ -89,3 +91,20 @@ Si vous ne désirez pas laisser le copyright, nous ne pouvons pas vous forcer. P
 Page introuvable
 ----------------
 - Lorsque vous mettez un dossier a la racine du CMS vous avez une erreur de page introuvable suivez le PDF disponible `ici </files/Webroot-Helper.pdf>`__
+
+Mineweb sous NGINX
+------------------
+Pour l'installation de mineweb avec nginx utilisez la vhost en suivant `ce lien <https://gist.github.com/Suertzz/52cbef8471d42bcb026fc0dd3a2ea2a8>`__.
+
+Si vous avez le js ne load pas lors de l'installation 
+
+.. image:: https://pics.suertzz.fr/11855O3e5r.png
+
+.. admonition:: exécutez ceci
+
+	sed -i -e "s/app\/webroot//g" /var/www/html/app/View/Install/first.ctp
+
+Si vous avez une 502 bad gateway pokez @suertz sur discord 
+
+(nginx ne parvient pas à communiquer avec php-cgi, ligne 13 dans la vhost voir `ce lien <https://www.digitalocean.com/community/questions/nginx-error-111-connection-refused>`__.
+
