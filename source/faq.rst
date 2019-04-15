@@ -84,4 +84,8 @@ Si vous ne désirez pas laisser le copyright, nous ne pouvons pas vous forcer. P
 
 *   C’est que vous ne respectez pas le travail d’autrui
 *   Et personne ne sera près à vous aider sur ce Discord
- 
+
+
+Page introuvable
+----------------
+- Lorsque vous mettez un dossier a la racine du CMS vous avez une erreur de page introuvable suivez le PDF disponible `ici </files/Webroot-Helper.pdf>`__
